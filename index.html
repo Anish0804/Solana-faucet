@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Free Solana</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color:  #080227;
+        }
+        
+        form {
+          background-color:rgb(179, 237, 255);
+          padding: 20px;
+          padding-right: 200px;
+          padding-bottom: 80px;
+          position: absolute;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.2);
+          max-width: 500px;
+          margin: auto;
+          top: 50%;
+          left: 35%;
+          justify-content: center;
+        }
+        
+        label {
+          display: block;
+          margin-bottom: 10px;
+          justify-content: center   ;
+          padding-left: 0;
+          font-family: cursive;
+          color: rgb(0, 4, 39);
+        }
+        
+        input[type="text"] {
+          padding: 10px;
+          border-radius: 5px;
+          border: #011c33;
+          margin-bottom: 20px;
+          width: 90%;
+          position: absolute;
+        }
+        
+        button[type="submit"] {
+          padding: 10px 20px;
+          background-color: #013661;
+          position: absolute;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          left: 43%;
+          top: 60%;
+        }
+        
+        button[type="submit"]:hover {
+          background-color: #edeeed;
+          color: #011c33;
+        }
+      </style>
+  </head>
+  </head>
+  <body>
+    <form onsubmit="sendtoken(event)">
+      <label for="input-text">Enter your Solana Wallet Address:</label>
+      <input type="text" id="input-text" name="input-text"><br><br>
+      <button type="submit">Submit</button>
+    </form>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+    <script>
+        const { Connection, PublicKey } = solanaWeb3;
+    </script>
+    <script>
+      function sendtoken(event) {
+        event.preventDefault();
+        var solanaPublicKey = document.getElementById("input-text").value;
+       
+        const connection = new Connection("https://api.devnet.solana.com");
+
+        
+        let publicKeyObject = new PublicKey(solanaPublicKey)
+
+        const fn = (async () => {
+      
+        let txhash = await connection.requestAirdrop(publicKeyObject, 1e9);
+        console.log(`txhash: ${txhash}`);
+        
+         // prevent the form from submitting normally
+        
+        
+        const inputText = document.getElementById("input-text").value;
+        alert("You entered: " + inputText);
+      }); 
+      fn();
+    }
+    </script>
+  </body>
+</html>
